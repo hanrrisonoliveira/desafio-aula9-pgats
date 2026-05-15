@@ -36,4 +36,20 @@ describe('ServicoDePagamento', () => {
         
         console.log(servicoDePagamento.consultarUltimoPagamento());
     });
+
+    it('Consultar exclusivamente o último pagamento', () => {
+        // Arrange
+        const servicoDePagamento = new ServicoDePagamento();
+
+        // Act
+        servicoDePagamento.pagar('1218', 'Tim', 208.50);
+        servicoDePagamento.pagar('4444-9987', 'Receita Federal', 200);
+        const ultimoPagamento = servicoDePagamento.consultarUltimoPagamento();
+
+        // Assert
+        assert.equal(ultimoPagamento.codigoDeBarras, '4444-9987');
+        assert.equal(ultimoPagamento.empresa, 'Receita Federal');
+        assert.equal(ultimoPagamento.valor, 200);
+        assert.equal(ultimoPagamento.categoria, 'cara');
+    });
 });
